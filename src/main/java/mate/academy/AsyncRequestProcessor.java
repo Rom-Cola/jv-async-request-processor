@@ -8,11 +8,11 @@ import java.util.concurrent.Executor;
 public class AsyncRequestProcessor {
     private final Executor executor;
 
+    private final Map<String, UserData> cache = new ConcurrentHashMap<>();
+
     public AsyncRequestProcessor(Executor executor) {
         this.executor = executor;
     }
-
-    Map<String, UserData> cache = new ConcurrentHashMap<>();
 
     public CompletableFuture<UserData> processRequest(String userId) {
         return CompletableFuture.supplyAsync(() -> {
